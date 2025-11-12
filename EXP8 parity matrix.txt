@@ -1,0 +1,30 @@
+clc;
+clear all;
+p_xy=input('Enter joint probability matrix ');
+[m,n]=size(p_xy);
+for i=1:m
+ px(i)=0;
+ for j=1:n
+ px(i)=px(i)+p_xy(i,j);
+ end
+end
+disp('P(X) matrix is:',px);
+for i=1:n
+ py(i)=0;
+ for j=1:m
+ py(i)=py(i)+p_xy(j,i);
+ end
+end
+disp('P(Y) matrix is:',py);
+hx=sum(-px.*log2(px));
+disp('Input entropy H(X) is:',hx);
+hy=sum(-py.*log2(py));
+disp('Output entropy H(Y) is:',hy);
+h_xy=sum(-p_xy.*log2(p_xy));
+disp('Joint Entropy H(X,Y) is:',h_xy);
+hxby=h_xy-hy;
+hybx=h_xy-hx;
+disp('Conditional Entropy H(X/Y) is:',hxby);
+disp('Conditional Entropy H(Y/X) is:',hybx);
+ixy=hx+hy-h_xy;
+disp('Mutual Information I(X,Y) is:',ixy);
